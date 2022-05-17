@@ -4,7 +4,7 @@ export const pool = createPool({
     host: 'localhost',
     user: 'jarek',
     password: 'root',
-    database: 'megaads',
+    database: 'megak_ads',
     namedPlaceholders: true,
     decimalNumbers: true
 })
