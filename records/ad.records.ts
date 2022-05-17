@@ -35,6 +35,7 @@ export class AdRecord implements AdEntity {
            throw new ValidationError('Nie można zlokalizować ogłoszenia');
        }
 
+       this.id = obj.id;
        this.name = obj.name;
        this.description = obj.description;
        this.price = obj.price;
@@ -43,12 +44,12 @@ export class AdRecord implements AdEntity {
        this.lon = obj.lon;
    }
 
-    static async getOne(id: string): Promise<AdRecord> {
-        const results = await pool.execute("SELECT * FROM `ads` WHERE id = :id", {
-            id
+    static async getOne(id: string): Promise<AdRecord | null> {
+        const [results] = await pool.execute("SELECT * FROM `ads` WHERE `id` = :id", {
+            id,
         }) as AdRecordResults;
 
-        return new AdRecord(results[0])
+        return results.length === 0 ? null : new AdRecord(results[0])
     }
 
 }
